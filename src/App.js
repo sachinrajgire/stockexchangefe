@@ -1,22 +1,21 @@
 import React,{useEffect,useState} from 'react';
 import './App.css';
 import Events from './Events' ;
-i
+
 
 let source,tradeEvents ;
 function App() {
 
 
-
   const [allEvents,setAllEvents] = useState([])
   const [start,setStart] = useState("")
-  const [speedSelected,setSpeedSelected] = useState(false)
   const [choosenSpeed,setChoosenSpeed] = useState('1x')
 
 
   useEffect(() => {
+    // let source
 if(start ==='start'  ) {
-  source = new EventSource('http://127.0.0.1:3333/start');
+ source = new EventSource('http://127.0.0.1:3333/start');  
   source.onmessage = function(e) {
 setAllEvents((prevState)=>{
 return [...prevState,JSON.parse(e.data)]
@@ -26,7 +25,7 @@ return [...prevState,JSON.parse(e.data)]
 }  
 ;
 
-if(start ==='pause') {
+if(start ==='stop') {
   source.close()
   
  fetch('http://127.0.0.1:3333/stop').then(response => response.text())
@@ -43,29 +42,30 @@ if(start ==='reset') {
               console.log(err)
             })
 }
+}, [start])
 
-if(speedSelected){
-  source.close()
-  fetch(`http://127.0.0.1:3333/set?speed=${choosenSpeed}`).then(response => response.text())
-             .then(data => console.log(data))
-             .catch(err => {
-               console.log(err)
-             })
- }
+useEffect(()=>{
+  if(choosenSpeed !=='1x'){
+  let  source = new EventSource('http://127.0.0.1:3333/start');  
+    source.close()
+    fetch(`http://127.0.0.1:3333/set?speed=${choosenSpeed}`).then(response => response.text())
+               .then(data => console.log(data))
+               .catch(err => {
+                 console.log(err)
+               })
+              }
+   
+},[choosenSpeed])
 
-
-
-
-}, [start,speedSelected,choosenSpeed])
 
   function handleStartLabel() {
     if(start === "") {
       return 'Start'
     }
     if(start === "start") {
-      return 'Pause'
+      return 'Stop'
     }
-    if(start === "pause") {
+    if(start === "stop") {
       return 'Start'
     }
     return 'Start'
@@ -75,9 +75,9 @@ if(speedSelected){
       return setStart('start')
     }
     if(start === "start") {
-      return setStart('pause')
+      return setStart('stop')
     }
-    if(start === "pause") {
+    if(start === "stop") {
       return setStart('start')
     }
    }
@@ -88,7 +88,6 @@ if(speedSelected){
 
   function handleSpeed(speed) {
  setChoosenSpeed(speed)
- setSpeedSelected(true)
    }
 
 
@@ -97,7 +96,7 @@ return (
       <button onClick={()=>handleStartAction()}>{handleStartLabel()}</button>
       <button onClick={()=>handleResetAction()}>Reset</button>
       <button onClick={()=>setAllEvents([])}>Clear</button>
-      <button onClick={()=>handleSpeed('0.1x')}>0.1x</button>
+      <button disabled={start === 'start'} onClick={()=>handleSpeed('0.1')}>0.1x</button>
 
     
 

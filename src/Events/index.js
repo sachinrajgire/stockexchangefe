@@ -12,7 +12,7 @@ function Events({allEvents}) {
 
     if(allEvents.length >0) {
         let lastEvent=allEvents.slice(-1)[0]
-        console.log(lastEvent,'lastEvent')
+        // console.log(lastEvent,'lastEvent')
         eventId =lastEvent.event[0]
         eventName =lastEvent.event[2]
         price1 =lastEvent.event[3]
@@ -39,6 +39,7 @@ function Events({allEvents}) {
    
   return (
     <div className='events-container'>
+    
 
   {shootData.map(i=>{
     const {title,body} =i
@@ -48,29 +49,6 @@ function Events({allEvents}) {
     />
   })}
 
-
-      {/* <Card 
-      title='Replay Clock'
-      body={friendlyTime}
-      />
- <div className='clock-container'>
-  <div>Replay Clock</div>
-  <div>{friendlyTime}</div>
-  <div>Event #</div>
-  <div> {eventId}</div>
-  </div>
-  <div>
-    <div className=''>
-   <div>Event</div>
-   <div>{eventName}</div>
-   </div>
-  <div>Exch1 :{xchg1}</div>
-  <div>Price 1:{price1}</div>
-  <div>Shares1:{share1}</div>
-  <div>Exch2 :{xchg2}</div>
-  <div>Price 2:{price2}</div>
-  <div>Shares2:{share2}</div> 
-  </div> */}
 
     </div>
   );

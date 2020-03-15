@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import './App.css';
 import Events from './Events' ;
+import OrderBook from './OrderBook' ;
 import Button from '@material-ui/core/Button';
 
 
@@ -92,21 +93,43 @@ useEffect(()=>{
  setchosenSpeed(speed)
    }
 
+  function getCurrentStatus() {
+    if(start === "" || start === 'reset' ) {
+      return 'Not Started'
+    }
+    if(start === "start") {
+      return "Started ..."
+    }
+    if(start === "stop") {
+      return "Paused..."
+    }
+    if(start === "reset") {
+      return "Paused..."
+    }
+   }
+
 
 return (
     <div className="App">
+      <div>
+        Current Status : {getCurrentStatus()}
+      </div>
       <div className='clock-container'>
       
-      <div><Button variant="contained" color="primary" onClick={()=>handleStartAction()}>{handleStartLabel()} </Button></div>
+      <div><Button variant={"contained"} color="primary" onClick={()=>handleStartAction()}>{handleStartLabel()} </Button></div>
       <div> <Button variant="contained" color="primary" onClick={()=>handleResetAction()}>Reset </Button></div>
       Speed
       <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('0.1')}>0.5px </Button></div>
       <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('5')}>5px </Button></div>
+      <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('10')}>10px </Button></div>
       </div>
 
     
-
+      <h2>Events </h2>
       <Events
+      allEvents={allEvents}
+      />
+      <OrderBook
       allEvents={allEvents}
       />
 

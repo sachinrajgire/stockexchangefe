@@ -1,15 +1,17 @@
 import React,{useEffect,useState} from 'react';
 import './App.css';
 import Events from './Events' ;
+import Button from '@material-ui/core/Button';
 
 
-let source,tradeEvents ;
+
+let source ;
 function App() {
 
 
   const [allEvents,setAllEvents] = useState([])
   const [start,setStart] = useState("")
-  const [choosenSpeed,setChoosenSpeed] = useState('1x')
+  const [chosenSpeed,setchosenSpeed] = useState('1x')
 
 
   useEffect(() => {
@@ -45,17 +47,17 @@ if(start ==='reset') {
 }, [start])
 
 useEffect(()=>{
-  if(choosenSpeed !=='1x'){
+  if(chosenSpeed !=='1x'){
   let  source = new EventSource('http://127.0.0.1:3333/start');  
     source.close()
-    fetch(`http://127.0.0.1:3333/set?speed=${choosenSpeed}`).then(response => response.text())
+    fetch(`http://127.0.0.1:3333/set?speed=${chosenSpeed}`).then(response => response.text())
                .then(data => console.log(data))
                .catch(err => {
                  console.log(err)
                })
               }
    
-},[choosenSpeed])
+},[chosenSpeed])
 
 
   function handleStartLabel() {
@@ -87,16 +89,20 @@ useEffect(()=>{
    }
 
   function handleSpeed(speed) {
- setChoosenSpeed(speed)
+ setchosenSpeed(speed)
    }
 
 
 return (
     <div className="App">
-      <button onClick={()=>handleStartAction()}>{handleStartLabel()}</button>
-      <button onClick={()=>handleResetAction()}>Reset</button>
-      <button onClick={()=>setAllEvents([])}>Clear</button>
-      <button disabled={start === 'start'} onClick={()=>handleSpeed('0.1')}>0.1x</button>
+      <div className='clock-container'>
+      
+      <div><Button variant="contained" color="primary" onClick={()=>handleStartAction()}>{handleStartLabel()} </Button></div>
+      <div> <Button variant="contained" color="primary" onClick={()=>handleResetAction()}>Reset </Button></div>
+      Speed
+      <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('0.1')}>0.5px </Button></div>
+      <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('5')}>5px </Button></div>
+      </div>
 
     
 

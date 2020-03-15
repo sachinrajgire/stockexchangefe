@@ -1,0 +1,77 @@
+
+.cardContainer {
+    background-color: white;
+    border:1px solid rgba(0,0,0,.0625);
+    display: grid;
+    padding:10px;
+    opacity: .9;
+    height: 120px;
+    width: 150px;
+    box-shadow: 1px 1px 3px lightgreen;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+    grid-template-areas: 
+    "cardtitle  cardtitle cardtitle"
+    "cardbody  cardbody cardbody"
+    "cardaction  cardaction cardaction" ;
+    ;
+}
+.cardContainerError {
+    background-color: white;
+    border:1px solid rgba(0,0,0,.0625);
+    display: grid;
+    padding:10px;
+    opacity: .9;
+    min-height:300px;
+    min-width: 500px;
+    box-shadow: 1px 1px 3px lightgreen;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+    grid-template-areas: 
+    "cardtitle  cardtitle cardtitle"
+    "cardbody  cardbody cardbody"
+    "cardbody  cardbody cardbody"
+    "cardaction  cardaction cardaction" ;
+    ;
+}
+.cardtitle {
+grid-area:cardtitle ;
+justify-self: center;
+align-items: center;
+font-weight: 700;
+
+}
+.cardbody {
+grid-area:cardbody ;
+justify-self: center;
+align-items: center;
+font-size: 22px;
+
+
+}
+.cardaction {
+grid-area:cardaction ;
+justify-self: center;
+align-items: center;
+
+
+}
+
+.cardMediumContainer {
+    background-color: white;
+    border:1px solid rgba(0,0,0,.0625);
+    display: grid;
+    padding:10px;
+    opacity: .9;
+    min-height: 200px;
+    min-width: 400px;
+    box-shadow: 1px 1px 3px lightgreen;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+    grid-template-areas: 
+    "cardtitle  cardtitle cardtitle"
+    "cardbody  cardbody cardbody"
+    "cardaction  cardaction cardaction" ;
+    ;
+}
+

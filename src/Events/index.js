@@ -15,6 +15,7 @@ function Events({allEvents}) {
         // console.log(lastEvent,'lastEvent')
         eventId =lastEvent.event[0]
         eventName =lastEvent.event[2]
+      
         price1 =lastEvent.event[3]
         share1 =lastEvent.event[4]
         xchg1 =lastEvent.event[5]
@@ -27,6 +28,7 @@ function Events({allEvents}) {
  let shootData =[
    {title:'Replay Clock',body:friendlyTime},
    {title:'Event',body:eventId},
+   {title:'Name',body:eventName},
    {title:'Exchange 1',body:xchg1},
    {title:'Price 1',body:price1},
    {title:'Share 1',body:share1},

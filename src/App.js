@@ -13,7 +13,6 @@ function App() {
   const [allEvents,setAllEvents] = useState([])
   const [start,setStart] = useState("")
   const [chosenSpeed,setchosenSpeed] = useState('1x')
-// const url = process.env.NODE_ENV === 'production' ? `https://sse-server-p.herokuapp.com/` : 'http://127.0.0.1:3333';
 const url =  `https://sse-server-p.herokuapp.com`
 
 
@@ -51,8 +50,8 @@ if(start ==='reset') {
 
 useEffect(()=>{
   if(chosenSpeed !=='1x'){
-  let  source = new EventSource(`${url}/start`);  
-    source.close()
+  // let  source = new EventSource(`${url}`);  
+    // source.close()
     fetch(`${url}/set?speed=${chosenSpeed}`).then(response => response.text())
                .then(data => console.log(data))
                .catch(err => {
@@ -113,17 +112,21 @@ useEffect(()=>{
 
 return (
     <div className="App">
-      <div>
-        Current Status : {getCurrentStatus()}
+      <div style={{margin:'20px'}}>
+        <strong>Current Status :</strong> {getCurrentStatus()}
       </div>
       <div className='clock-container'>
       
       <div><Button variant={"contained"} color="primary" onClick={()=>handleStartAction()}>{handleStartLabel()} </Button></div>
       <div> <Button variant="contained" color="primary" onClick={()=>handleResetAction()}>Reset </Button></div>
+      <div>
       Speed
+      <div className='buttons'>
       <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('0.1')}>0.5px </Button></div>
       <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('5')}>5px </Button></div>
       <div><Button variant="contained" color="secondary" disabled={start === 'start'} onClick={()=>handleSpeed('10')}>10px </Button></div>
+      </div>
+      </div>
       </div>
 
     
@@ -141,16 +144,3 @@ return (
 }
 
 export default App;
-
-// {"event":[404,1563197428895,"NBBO",142.79,100,"Q",142.9,300,"N"],
-// "time":{"wallClock":2.104,"eventTime":2.101}}
-
-// {"event":[400,1563197428788,"Trade",142.862,500,"D"],"time":{"wal
-// lClock":1.999,"eventTime":1.994}}
-
-// {"event":[904,1563197462535,"Bid",142.73,100,"Y"],"time":{"wallCl
-// ock":62.324,"eventTime":62.322}}
-// {"event":[905,1563197462535,"Ask",142.93,100,"Y"],"time":{"wallCl
-// ock":62.325,"eventTime":62.322}}
-
-

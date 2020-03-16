@@ -13,12 +13,14 @@ function App() {
   const [allEvents,setAllEvents] = useState([])
   const [start,setStart] = useState("")
   const [chosenSpeed,setchosenSpeed] = useState('1x')
+// const url = process.env.NODE_ENV === 'production' ? `https://sse-server-p.herokuapp.com/` : 'http://127.0.0.1:3333';
+const url =  `https://sse-server-p.herokuapp.com`
 
 
   useEffect(() => {
     // let source
 if(start ==='start'  ) {
- source = new EventSource('http://127.0.0.1:3333/start');  
+ source = new EventSource(`${url}/start`);  
   source.onmessage = function(e) {
 setAllEvents((prevState)=>{
 return [...prevState,JSON.parse(e.data)]
@@ -31,7 +33,7 @@ return [...prevState,JSON.parse(e.data)]
 if(start ==='stop') {
   source.close()
   
- fetch('http://127.0.0.1:3333/stop').then(response => response.text())
+ fetch(`${url}/stop`).then(response => response.text())
             .then(data => console.log(data))
             .catch(err => {
               console.log(err)
@@ -39,7 +41,7 @@ if(start ==='stop') {
 }
 if(start ==='reset') {
   source.close()
- fetch('http://127.0.0.1:3333/reset').then(response => response.text())
+ fetch(`${url}/reset`).then(response => response.text())
             .then(data => console.log(data))
             .catch(err => {
               console.log(err)
@@ -49,9 +51,9 @@ if(start ==='reset') {
 
 useEffect(()=>{
   if(chosenSpeed !=='1x'){
-  let  source = new EventSource('http://127.0.0.1:3333/start');  
+  let  source = new EventSource(`${url}/start`);  
     source.close()
-    fetch(`http://127.0.0.1:3333/set?speed=${chosenSpeed}`).then(response => response.text())
+    fetch(`${url}/set?speed=${chosenSpeed}`).then(response => response.text())
                .then(data => console.log(data))
                .catch(err => {
                  console.log(err)

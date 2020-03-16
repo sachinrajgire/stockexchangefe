@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
 
 
 const useStyles = makeStyles({
@@ -16,6 +17,10 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  mow :{
+    fontWeight:'600',
+    transition: 'all 5s ease-in 5s'
+  }
 });
 
 
@@ -41,15 +46,19 @@ export default function CustomTable({data,handler}) {
         
         </TableHead>
         <TableBody>
-          {data.map(row => (
-            <TableRow key={row.f0} onClick={handler}>
+          {data.map((row,index) => (
+            // <div className={classes.row}>
+            
+              <TableRow key={`${row.f0}${index}`} onClick={handler}>
                 {Object.values(row).map((i,idx)=>{                     
-                      return <TableCell key={idx} >
+                      return <TableCell className={classes.mow} key={`${idx}abc`} >
                       {i}
                       </TableCell>
                       })} 
               
             </TableRow>
+          
+            // </div>
           ))}
         </TableBody>
       </Table>

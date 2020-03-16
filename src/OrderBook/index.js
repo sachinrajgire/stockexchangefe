@@ -24,11 +24,15 @@ function OrderBook({allEvents}) {
 
 const [bid,setBid] =useState({})
 const [ask,setAsk] =useState({})
-console.log(bid,'bid')
-console.log(ask,'ask')
 
 function bidData(){
-  return Object.entries(bid).map(i=>{
+  return Object.entries(bid)
+  .sort((a,b)=>{
+   
+   return  b[1][2]-a[1][2]
+
+  })
+  .map(i=>{
     const [exch,currentBid] =i
     let exchString =exch.toString()
     return {
@@ -43,7 +47,12 @@ function bidData(){
 
 }
 function askData(){
-  return Object.entries(ask).map(i=>{
+  return Object.entries(ask)
+  .sort((a,b)=>{   
+    return  a[1][2] - b[1][2]
+ 
+   })
+  .map(i=>{
     const [exch,currentAsk] =i
     let exchString =exch.toString()
     return {

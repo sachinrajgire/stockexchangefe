@@ -13,7 +13,8 @@ function App() {
   const [allEvents,setAllEvents] = useState([])
   const [start,setStart] = useState("")
   const [chosenSpeed,setchosenSpeed] = useState('1x')
-const url =  `https://sse-server-p.herokuapp.com`
+let url =  `https://sse-server-p.herokuapp.com`
+// let url =  `http://127.0.0.1:3333`
 
 
   useEffect(() => {
@@ -21,8 +22,12 @@ const url =  `https://sse-server-p.herokuapp.com`
 if(start ==='start'  ) {
  source = new EventSource(`${url}/start`);  
   source.onmessage = function(e) {
+
 setAllEvents((prevState)=>{
-return [...prevState,JSON.parse(e.data)]
+ let parseddata= JSON.parse(e.data)
+  if(typeof parseddata !== 'string') {
+    return [parseddata]
+  }
 })
 // console.log(JSON.parse(e.data),'E.DATA')
 }
